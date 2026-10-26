@@ -1,0 +1,6 @@
+import type { Metadata } from 'next';
+import { ArrowRight } from 'lucide-react';
+import { industries } from '@/lib/content';
+import { Header, Footer, PageHero, FinalCta } from '@/components/site-shell';
+export const metadata: Metadata = { title: 'Commercial Industries We Serve', description: 'Explore drone inspection and monitoring services for construction, commercial property, industrial, solar, infrastructure and facility teams across Canada.', alternates: { canonical: '/industries' } };
+export default function IndustriesPage(){return <main><Header/><PageHero eyebrow="Commercial applications" title="Aerial insight for your industry." intro="Start with the asset and the decision you need to make. Explore relevant inspections, monitoring and documentation for your team." image="/images/pages/industry-industrial.jpg"/><section className="services-section"><div className="service-grid">{Object.entries(industries).map(([slug,item],i)=><a key={slug} href={`/industries/${slug}`}><span>{String(i+1).padStart(2,'0')}</span><h2>{item.title}</h2><p>{item.intro}</p><ArrowRight/></a>)}</div></section><FinalCta/><Footer/></main>}

@@ -1,0 +1,2 @@
+import { Header, Footer } from '@/components/site-shell';
+export default function NotFound(){return <main><Header/><section id="main-content" tabIndex={-1} className="legal-page"><p className="section-label">Page not found</p><h1>Let’s find the right service.</h1><p>This address is unavailable. Explore our <a href="/drone-inspections">drone services</a>, browse <a href="/locations">locations</a>, or <a href="/contact">request a site review</a>.</p><a className="primary-button" href="/">Back to home</a></section><Footer/></main>}
