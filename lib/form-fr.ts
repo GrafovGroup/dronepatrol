@@ -1,0 +1,20 @@
+import { provincesFr } from './content-fr';
+export const formFr:Record<string,string>={...provincesFr,
+'Request sent':'Demande envoyée','Thank you.':'Merci.',
+"Your site review request has been received by our form service. We'll review the project details and follow up using the contact information you provided.":'Notre service de formulaires a reçu votre demande. Nous examinerons les renseignements du projet et communiquerons avec vous aux coordonnées fournies.',
+'Send another request':'Envoyer une autre demande',
+'Required: name, company, email, service, city, province or territory, and project details. Everything else is optional.':'Champs obligatoires : nom, entreprise, courriel, service, ville, province ou territoire et détails du projet. Les autres champs sont facultatifs.',
+'Name':'Nom','Company':'Entreprise','Work Email':'Courriel professionnel','Phone':'Téléphone','Service Required':'Service souhaité','Select a service':'Choisir un service',
+'Commercial Roof Inspection':'Inspection de toiture commerciale','Construction Monitoring':'Suivi de chantier','Building / Façade Inspection':'Inspection de bâtiment ou de façade','Industrial Inspection':'Inspection industrielle','Thermal Inspection':'Inspection thermique','Solar Inspection':'Inspection d’installation solaire','Storm / Damage Documentation':'Documentation des dommages ou des intempéries','Property Patrol':'Suivi périodique de propriété','Multiple Locations':'Plusieurs sites','Other':'Autre',
+'Property / Site Address':'Adresse de la propriété ou du site','City':'Ville','Province / Territory':'Province ou territoire','Select province or territory':'Choisir une province ou un territoire','Number of Locations':'Nombre de sites','Preferred Timing':'Échéancier souhaité','Date or timeframe':'Date ou période',
+'What would you like inspected or documented?':'Que souhaitez-vous faire inspecter ou documenter?',
+'Have site plans, photos or documents?':'Avez-vous des plans, des photos ou des documents?',
+"Mention them in your request and we'll arrange a secure transfer if they are needed.":'Mentionnez-les dans votre demande. Nous organiserons un transfert sécurisé au besoin.',
+'This project includes multiple locations':'Ce projet comprend plusieurs sites',
+'Your request was not confirmed. Please try again, email':'L’envoi de votre demande n’a pas été confirmé. Réessayez, écrivez à',
+'or call':'ou appelez le',
+'Sending Request…':'Envoi en cours…','Request Site Review':'Demander une évaluation du site',
+'We use your details to respond to this inquiry. Read our':'Nous utilisons vos renseignements pour répondre à cette demande. Consultez notre',
+'privacy policy':'politique de confidentialité',
+'. Do not include sensitive personal information. Form submissions are processed by Formspree.':'. N’incluez pas de renseignements personnels sensibles. Les formulaires sont traités par Formspree.'
+};

@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import { sitePhone } from '@/lib/site-config';
@@ -23,11 +24,12 @@ export const metadata: Metadata = {
   twitter:{card:'summary_large_image',title:'DronePatrol.ca — Aerial Inspections & Site Monitoring',description:'Commercial drone services coordinated across Canada.',images:['/images/hero-commercial-drone.jpg']},
 };
 
-export default function RootLayout({children}:{children:React.ReactNode}) {
+export default async function RootLayout({children}:{children:React.ReactNode}) {
+  const locale=(await headers()).get('x-site-locale')==='fr'?'fr-CA':'en-CA';
   const schema={ '@context':'https://schema.org','@graph':[
     {'@type':'Organization','@id':'https://dronepatrol.ca/#organization',name:'DronePatrol.ca',url:'https://dronepatrol.ca',email:'info@dronepatrol.ca',telephone:sitePhone.e164,areaServed:{'@type':'Country',name:'Canada'}},
     {'@type':'WebSite','@id':'https://dronepatrol.ca/#website',url:'https://dronepatrol.ca',name:'DronePatrol.ca',publisher:{'@id':'https://dronepatrol.ca/#organization'}},
     {'@type':'ProfessionalService',name:'DronePatrol.ca',url:'https://dronepatrol.ca',email:'info@dronepatrol.ca',telephone:sitePhone.e164,areaServed:{'@type':'Country',name:'Canada'},serviceType:['Commercial drone inspection','Construction progress monitoring','Aerial site documentation']}
   ]};
-  return <html lang="en"><body className={`${display.variable} ${body.variable}`}><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/>{children}</body></html>;
+  return <html lang={locale}><body className={`${display.variable} ${body.variable}`}><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/>{children}</body></html>;
 }

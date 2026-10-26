@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Children, cloneElement, isValidElement, type ReactNode, type ReactElement, type ComponentProps } from 'react';
+import { formFr } from '@/lib/form-fr';
 import { sitePhone } from '@/lib/site-config';
 import { useForm, ValidationError } from '@formspree/react';
 import { ArrowRight, Check, Paperclip } from 'lucide-react';
@@ -49,7 +50,27 @@ const provinces = [
   'Yukon',
 ];
 
-export function ContactForm() {
+export function ContactForm({locale='en'}:{locale?:'en'|'fr'}) {
+  const translate = (node: ReactNode): ReactNode => {
+    if (locale !== 'fr') return node;
+    if (typeof node === 'string') {
+      const normalized = node.replace(/\s+/g, ' ').trim();
+      const translated = formFr[normalized];
+      return translated ? `${/^\s/.test(node)?' ':''}${translated}${/\s$/.test(node)?' ':''}` : node;
+    }
+    if (!isValidElement(node)) return node;
+    const el = node as ReactElement<Record<string, unknown>>;
+    const props: Record<string, unknown> = {};
+    for (const key of ['placeholder','aria-label']) if (typeof el.props[key] === 'string') props[key] = formFr[el.props[key] as string] || el.props[key];
+    if (el.props.href === '/privacy') props.href='/fr/privacy';
+    if (el.props.children !== undefined) props.children=Children.map(el.props.children as ReactNode,translate);
+    return cloneElement(el,props);
+  };
+  function FieldError(props: ComponentProps<typeof ValidationError<ContactFields>>){
+    if(locale !== 'fr')return <ValidationError {...props}/>;
+    const exists=props.field ? Boolean(state.errors?.getFieldErrors(props.field).length) : Boolean(state.errors);
+    return exists ? <span id={props.id} className="form-error" role="alert">{props.field?'Vérifiez ce champ et réessayez.':'L’envoi a échoué. Vérifiez les renseignements ou utilisez les coordonnées ci-dessous.'}</span> : null;
+  }
   const [state, handleSubmit, reset] = useForm<ContactFields>('mkjnprar');
   const successRef = useRef<HTMLOutputElement>(null);
   const hasError = (field: keyof ContactFields) =>
@@ -64,7 +85,7 @@ export function ContactForm() {
   }, [state.succeeded]);
 
   if (state.succeeded) {
-    return (
+    return translate(
       <output
         ref={successRef}
         className="form-success"
@@ -88,7 +109,7 @@ export function ContactForm() {
     );
   }
 
-  return (
+  return translate(
     <form
       className="commercial-form"
       action="https://formspree.io/f/mkjnprar"
@@ -96,10 +117,11 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       aria-busy={state.submitting}
     >
+      <input type="hidden" name="language" value={locale} />
       <input
         type="hidden"
         name="_subject"
-        value="New DronePatrol.ca site review request"
+        value={locale === 'fr' ? 'Nouvelle demande DronePatrol.ca — français' : 'New DronePatrol.ca site review request'}
       />
 
       <p className="form-help">Required: name, company, email, service, city, province or territory, and project details. Everything else is optional.</p>
@@ -114,7 +136,7 @@ export function ContactForm() {
             required
             {...errorProps('name')}
           />
-          <ValidationError
+          <FieldError
             id="name-error"
             className="form-error"
             field="name"
@@ -130,7 +152,7 @@ export function ContactForm() {
             required
             {...errorProps('company')}
           />
-          <ValidationError
+          <FieldError
             id="company-error"
             className="form-error"
             field="company"
@@ -150,7 +172,7 @@ export function ContactForm() {
             required
             {...errorProps('email')}
           />
-          <ValidationError
+          <FieldError
             id="email-error"
             className="form-error"
             field="email"
@@ -166,7 +188,7 @@ export function ContactForm() {
             autoComplete="tel"
             {...errorProps('phone')}
           />
-          <ValidationError
+          <FieldError
             id="phone-error"
             className="form-error"
             field="phone"
@@ -188,10 +210,10 @@ export function ContactForm() {
             Select a service
           </option>
           {services.map((service) => (
-            <option key={service}>{service}</option>
+            <option value={service} key={service}>{service}</option>
           ))}
         </select>
-        <ValidationError
+        <FieldError
           id="service-error"
           className="form-error"
           field="service"
@@ -207,7 +229,7 @@ export function ContactForm() {
           autoComplete="street-address"
           {...errorProps('address')}
         />
-        <ValidationError
+        <FieldError
           id="address-error"
           className="form-error"
           field="address"
@@ -225,7 +247,7 @@ export function ContactForm() {
             required
             {...errorProps('city')}
           />
-          <ValidationError
+          <FieldError
             id="city-error"
             className="form-error"
             field="city"
@@ -246,10 +268,10 @@ export function ContactForm() {
               Select province or territory
             </option>
             {provinces.map((province) => (
-              <option key={province}>{province}</option>
+              <option value={province} key={province}>{province}</option>
             ))}
           </select>
-          <ValidationError
+          <FieldError
             id="province-error"
             className="form-error"
             field="province"
@@ -269,7 +291,7 @@ export function ContactForm() {
             defaultValue="1"
             {...errorProps('locations')}
           />
-          <ValidationError
+          <FieldError
             id="locations-error"
             className="form-error"
             field="locations"
@@ -284,7 +306,7 @@ export function ContactForm() {
             placeholder="Date or timeframe"
             {...errorProps('timing')}
           />
-          <ValidationError
+          <FieldError
             id="timing-error"
             className="form-error"
             field="timing"
@@ -304,7 +326,7 @@ export function ContactForm() {
           rows={6}
           {...errorProps('details')}
         />
-        <ValidationError
+        <FieldError
           id="details-error"
           className="form-error"
           field="details"
@@ -328,7 +350,7 @@ export function ContactForm() {
         project includes multiple locations
       </label>
 
-      <ValidationError
+      <FieldError
         className="form-error form-error-summary"
         errors={state.errors}
         role="alert"

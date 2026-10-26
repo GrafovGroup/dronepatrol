@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Footer, Header } from '@/components/site-shell';
 import { industries, services } from '@/lib/content';
 
-export const metadata: Metadata = { alternates: { canonical: '/' } };
+export const metadata: Metadata = { alternates: { canonical:'/',languages:{'en-CA':'/','fr-CA':'/fr','x-default':'/'} } };
 
 const serviceOrder=['commercial-roof-inspections','construction-drone-services','building-facade-inspections','industrial-drone-inspections','thermal-drone-inspections','solar-drone-inspections','damage-documentation','property-patrol'] as const;
 const industryIcons=[Building2,HardHat,Factory,Layers3,FileSearch,ShieldCheck,MapPin,ClipboardCheck];
