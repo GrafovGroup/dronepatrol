@@ -104,7 +104,7 @@ export function ContactForm({locale='en',initial={}}:{locale?:'en'|'fr';initial?
         <p className="section-label">Request sent</p>
         <h2>Thank you.</h2>
         <p>
-          Your site review request has been received by our form service. We&apos;ll
+          Your site review request has been received. We&apos;ll
           review the project details and follow up using the contact information
           you provided.
         </p>
@@ -138,7 +138,6 @@ export function ContactForm({locale='en',initial={}}:{locale?:'en'|'fr';initial?
       <FieldError className="form-error form-error-summary" errors={state.errors} role="alert" aria-live="assertive"/>
       {state.errors&&<p className="form-help" role="alert">Your request was not confirmed. Please try again, email <a href="mailto:info@dronepatrol.ca">info@dronepatrol.ca</a> or call <a href={sitePhone.href}>{sitePhone.display}</a>.</p>}
       <button className="form-submit" type="submit" disabled={state.submitting}>{state.submitting?'Sending Request…':'Request Site Review'}{!state.submitting&&<ArrowRight/>}</button>
-      <p className="form-note">We use your details to respond to this inquiry. Read our <a href="/privacy">privacy policy</a>. Do not include sensitive personal information. Form submissions are processed by Formspree.</p>
     </form>
   );
 }
