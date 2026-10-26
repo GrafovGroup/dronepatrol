@@ -1,5 +1,10 @@
 import { provincesFr } from './content-fr';
 export const formFr:Record<string,string>={...provincesFr,
+'Start with five essentials: name, email, service, city and a short description. You can add more details below.':'Commencez par cinq renseignements essentiels : nom, courriel, service, ville et courte description. Vous pouvez ajouter des détails ci-dessous.',
+'We filled in details from the page you visited. You can change them before sending.':'Certains renseignements proviennent de la page consultée. Vous pouvez les modifier avant l’envoi.',
+'Province / Territory (optional)':'Province ou territoire (facultatif)',
+'Add project details (optional)':'Ajouter des détails au projet (facultatif)',
+'A brief description is enough to get started.':'Une courte description suffit pour commencer.',
 'Request sent':'Demande envoyée','Thank you.':'Merci.',
 "Your site review request has been received by our form service. We'll review the project details and follow up using the contact information you provided.":'Notre service de formulaires a reçu votre demande. Nous examinerons les renseignements du projet et communiquerons avec vous aux coordonnées fournies.',
 'Send another request':'Envoyer une autre demande',
